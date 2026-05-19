@@ -1,5 +1,9 @@
+using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
@@ -176,7 +180,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         var best = FindClosestGrapplePoint();
-        if (best == null)
+        if (!best)
             return;
 
         _grappleTarget = best;
@@ -203,7 +207,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        var direction = _grappleTarget.position - transform.position;
+        var direction = _grappleTarget.localPosition - transform.position;
         direction.z = 0f;
 
         if (direction.magnitude <= grappleStopDistance)
